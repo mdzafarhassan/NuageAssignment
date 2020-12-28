@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">Navbar</a>
+  <form class="form-inline search-form" action="" method="POST">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search_keyword" />
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  <a href="/contact">Download Contact</a>
+</nav>
+<h3>{{data}}</h3>
+<br />
+<div class="container product-display">
+  {% if data %}
+  <div class="row">
+  {% for product in products %}
+    <div class="card product-card" style="width: 18rem;">
+      <img src="{{product.product_image}}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{product.product_name}}</h5>
+        <p class="card-text">Price: {{product.product_price}}</p>
+        <a href="{{product.product_url}}" class="btn btn-primary">Check in store ({{product.store}})</a>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</div>
+
+{% endblock %}
