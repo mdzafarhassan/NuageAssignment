@@ -22,7 +22,7 @@
     <div class="card product-card" style="width: 18rem;">
       <img src="{{product.product_image}}" class="card-img-top" alt="..." />
       <div class="card-body">
-        <h5 class="card-title">{{product.product_name}}</h5>
+        <h5 class="card-title">{{loop.index}}. {{product.product_name}}</h5>
         <p class="card-text">Price: {{product.product_price}}</p>
         <a href="{{product.product_url}}" class="btn btn-primary">Check in store ({{product.store}})</a>
       </div>
