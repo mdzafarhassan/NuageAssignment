@@ -25,8 +25,7 @@ class ProductSearch():
 
         while len(self.display_list)<50:
             if len(self.products_list) > 0:
-                self.display_list.append(self.products_list[0])
-                self.products_list.pop(0)
+                self.display_list.append(self.products_list.pop(0))
             elif len(self.api_done) >= 3:
                 break
             else:
@@ -108,4 +107,5 @@ class ProductSearch():
             page+=1
 
     def add_product(self, product):
-        self.products_list.append(product)
+        if not product in self.products_list:
+            self.products_list.append(product)

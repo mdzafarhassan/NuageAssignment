@@ -21,6 +21,8 @@ class ProductMaster(db.Model):
     def __rep__(self):
         return '<Task %r>'  % self.id
 
+    def __str__(self):
+        return self.product_name
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -29,11 +31,10 @@ def index():
         if not keyword or keyword=='':
             return render_template('index.html')
 
-        print("keyword  ::  ",keyword)
         p1 = threading.Thread(target=update_db_data, args=[keyword])
         p1.start()
+
         product_list = ProductMaster.query.filter(ProductMaster.product_name.ilike(f"%{keyword}%"), ProductMaster.search_tag.ilike(f"%{keyword}%"))[:50]
-        print(product_list)
         return render_template('index.html', products=product_list, data='Search Result')
     return render_template('index.html')
 
@@ -41,10 +42,9 @@ def index():
 def update_db_data(keyword):
     products = ProductSearch()
     product_list = products(keyword)
-    print(len(product_list))
     for product in product_list:
         try:
-            ProductMaster.query.filter_by(product_name=product['product_name'])[0]
+            ProductMaster.query.filter_by(product_name=product['product_name'], product_url=product['product_url'])[0]
         except:
             row = ProductMaster(product_name=product['product_name'], product_url=product['product_url'], product_image=product['product_image'], product_price=product['product_price'], store=product['store'], search_tag=keyword)
             db.session.add(row)
