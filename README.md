@@ -1,3 +1,3 @@
 # NuageAssignment
 
-## Sample project for demo.
+## Sample project for demo
